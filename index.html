@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>pixi.js example 1</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #000000;
+		}
+	</style>
+	<script src="pixi.dev.js"></script>
+	<script src="Pixel.js"></script>
+	<script src="SequenceAction.js"></script>
+	<script src="MoveAction.js"></script>
+
+</head>
+<body>
+	<script>
+
+	var view = Pixel.init()
+	document.body.appendChild(view);
+
+
+	var createBunny = function(){
+		var texture = PIXI.Texture.fromImage("bunny.png");
+		return function(x, y){
+			var bunny = new PIXI.Sprite(texture);
+			bunny.anchor.x = 0.5;
+			bunny.anchor.y = 0.5;
+			bunny.position.x = x;
+			bunny.position.y = y;
+			return bunny;	
+		};
+	}();
+
+	var bunny = createBunny(200,150);
+	var bunny2 = createBunny(200,150);
+
+	var stage = new PIXI.Stage(0x66FF99);
+	stage.addChild(bunny);
+	stage.addChild(bunny2);
+
+
+	var moveAction1 = new Pixel.MoveAction(bunny, 1, 20, 20);
+	var moveAction2 = new Pixel.MoveAction(bunny, 1, 380, 20);
+	var sequenceAction = new Pixel.SequenceAction(moveAction1, moveAction2);
+	var action2 = new Pixel.MoveAction(bunny2, 1, 380, 20);
+	Pixel.addAction(sequenceAction);
+	Pixel.addAction(action2);
+
+	</script>
+
+	</body>
+</html>
