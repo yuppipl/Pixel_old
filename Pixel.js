@@ -28,7 +28,7 @@ Pixel.update = function update() {
 	    var currentTime = Date.now();
 
 	    for(var i=0; i < this.actions.length; i++){
-	    	this.actions[i].update(currentTime);
+	    	this.actions[i].tick(currentTime);
 	    }
 
 	    this.renderer.render(stage);

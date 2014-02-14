@@ -1,13 +1,11 @@
-Pixel.MoveAction = function(sprite, time, x, y){
+Pixel.RotateAction = function(sprite, time, angle){
 	this.sprite = sprite;
-	this.x = x;
-	this.y = y;
+	this.angle = angle;
 
 	this.start = function(){
 		this.startTime = Date.now();
 		this.endTime = this.startTime + time * 1000;
-		this.orgX = this.sprite.position.x;
-		this.orgY = this.sprite.position.y;
+		this.orgRotation= this.sprite.rotation;
 	}
 
 	this.update = function(currentTime){
@@ -17,11 +15,10 @@ Pixel.MoveAction = function(sprite, time, x, y){
 		}
 		
 		var progress = (currentTime - this.startTime) / (this.endTime - this.startTime);
-		this.sprite.position.x = this.orgX - (this.orgX - this.x) * progress;
-		this.sprite.position.y = this.orgY - (this.orgY - this.y) * progress;
+		this.sprite.rotation = this.orgRotation + progress * angle;  
 		
 		return !end;
 	}
 }
 
-Pixel.MoveAction.prototype = Pixel.Action;
+Pixel.RotateAction.prototype = Pixel.Action;
