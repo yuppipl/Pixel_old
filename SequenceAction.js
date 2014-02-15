@@ -1,12 +1,8 @@
 Pixel.SequenceAction = function(){
 	this.args = arguments;
-	this.currentIndex = 0;
 	
 	this.start = function(){
-// 		for(var i=0; i<this.args.length; i++){
-// 			var action = this.args[i];
-// 			action.init();
-// 		}
+		this.currentIndex = 0;
 	}
 
 	this.update = function(currentTime){
@@ -19,6 +15,14 @@ Pixel.SequenceAction = function(){
 			return true;
 		} 
 		return false;
+	}
+	
+	this.reset = function(){
+		Pixel.SequenceAction.prototype.reset.call(this);
+		for(var i=0; i<this.args.length; i++){
+			var action = this.args[i];
+			action.reset();
+		}
 	}
 }
 

@@ -1,9 +1,9 @@
 Pixel.RepeatAction = function(action, times){
 	this.action = action;
     this.times = times;
-	this.currentCycle = 0;
 	
 	this.start = function(){
+		this.currentCycle = 0;
 	}
 
 	this.update = function(currentTime){
@@ -11,12 +11,16 @@ Pixel.RepeatAction = function(action, times){
 			this.action.tick(currentTime);
 			if(action.isFinished()){
 				this.currentCycle++;
-                action.init();
-                console.log(this.currentCycle);
+                action.reset();
 			}
 			return true;
 		} 
 		return false;
+	}
+	
+	this.reset = function(){
+		Pixel.RepeatAction.prototype.reset.call(this);
+		this.action.init();
 	}
 }
 
